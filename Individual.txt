@@ -1,0 +1,488 @@
+================================================================================
+     INDIVIDUAL CONTRIBUTIONS REPORT
+     Project: Flood Forecasting Model Using Federated Learning
+     Dept: CSE – AI & ML | AY 2025-26 | Guide: Dr. G. Kishore
+     Team: M Karthik Reddy | T Siva Reddy | I Sushma Meghana | R Navya Sri
+================================================================================
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              PART 1 : PPT SLIDES DIVISION (20 Slides ÷ 4 Members)          ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+  Each member presents 5 slides. Division is structured so each person
+  explains the part of the project they actually built.
+
+────────────────────────────────────────────────────────────────────────────────
+  MEMBER 1 — KARTHIK   →   SLIDES 1 to 5   (Project Setup & Problem Context)
+────────────────────────────────────────────────────────────────────────────────
+
+  SLIDE 1 — Title Slide
+    WHY: You are the team leader, so you open the presentation.
+    WHAT TO SAY:
+      • "This is our Final Year Project — Flood Forecasting Model using
+        Federated Learning."
+      • "I'm Karthik, Team Leader. Our team of 4 has built a complete
+        AI-based flood prediction system for the Krishna River Basin."
+      • Mention department, year, guide name.
+
+  SLIDE 2 — Abstract: Revolutionizing Flood Prediction
+    WHY: You designed the overall system, so you explain the big picture.
+    WHAT TO SAY:
+      • "Traditional systems share raw data — which causes privacy issues."
+      • "We solved this using Federated Learning — stations train locally
+        and only share model weights, never raw data."
+      • "Our CNN2D model achieves 99.9% accuracy."
+      • Highlight: FL + Privacy + CNN2D are the three pillars.
+
+  SLIDE 3 — Introduction: The Urgency for Advanced Forecasting
+    WHY: You identified the problem statement as team lead.
+    WHAT TO SAY:
+      • "Floods cause massive loss of life and property every year."
+      • "The Krishna River Basin — spanning AP, Telangana, Karnataka —
+        needs a smarter, station-level early warning system."
+      • "Existing systems are slow, centralized, and not privacy-safe."
+
+  SLIDE 4 — Existing System (Centralized Approach)
+    WHY: Understanding the old system justifies why you built the new one.
+    WHAT TO SAY:
+      • "In old centralized systems, all stations send raw data to one server."
+      • "The server does all the processing — creating a bottleneck."
+      • "This raises serious data privacy and bandwidth concerns."
+      • "If the server fails, the entire system goes down."
+
+  SLIDE 5 — Disadvantages of the Centralized System
+    WHY: This directly justifies your design decision to use FL.
+    WHAT TO SAY:
+      • Privacy Leakage — raw hydro data exposed.
+      • High Bandwidth — constant data transmission is expensive.
+      • Single Point of Failure — one server crash = total failure.
+      • Scalability Issues — can't add stations easily.
+      • High Latency — slow alerts = delayed emergency response.
+      • "These 5 problems led us to design a Federated Learning solution."
+
+────────────────────────────────────────────────────────────────────────────────
+  MEMBER 2 — SIVA   →   SLIDES 6 to 10   (Proposed System & Architecture)
+────────────────────────────────────────────────────────────────────────────────
+
+  SLIDE 6 — Proposed System: Federated Learning Based Flood Forecasting
+    WHY: You built the client app and models — this is your solution.
+    WHAT TO SAY:
+      • "In our system, each station trains its model locally on its own data."
+      • "Raw data never leaves the station — only model weights are shared."
+      • "The server aggregates these weights to build a global model."
+      • "This gives us privacy + accuracy + collaboration — all together."
+
+  SLIDE 7 — Working of the Proposed System (4-Step FL Cycle)
+    WHY: You implemented the client-side of all 4 steps.
+    WHAT TO SAY:
+      • Step 1: "Each station trains CNN2D on local rainfall data." (you built this)
+      • Step 2: "Weights encoded as Base64 and sent via socket." (you built this)
+      • Step 3: "Server runs FedAvg to merge all weights." (Karthik built this)
+      • Step 4: "Global model is redistributed for better predictions."
+      • "This cycle keeps improving accuracy without touching raw data."
+
+  SLIDE 8 — Advantages of the Federated Learning Approach
+    WHY: Your design choices directly deliver these advantages.
+    WHAT TO SAY:
+      • Enhanced Privacy — "Data never leaves the station."
+      • Reduced Bandwidth — "Only small weight files uploaded, not full datasets."
+      • Better Generalization — "Each station's data teaches the global model."
+      • Low Latency — "Local training is fast, no need to wait for server."
+      • High Scalability — "Adding a new station is plug-and-play."
+
+  SLIDE 9 — System Architecture Overview (3-Layer Architecture)
+    WHY: You built the full client layer.
+    WHAT TO SAY:
+      • "Layer 1 — Client Layer: 3 stations each running Main.py (my work)."
+      • "Layer 2 — Communication Layer: TCP Socket, JSON + Base64 + EOF."
+      • "Layer 3 — Server Layer: Receives weights, runs FedAvg (Karthik's work)."
+      • Explain how data flows up from client to server.
+
+  SLIDE 10 — Client Side Module: Local Processing
+    WHY: This is your core contribution — Main.py, FFNN, CNN2D.
+    WHAT TO SAY:
+      • "Client receives historical monthly rainfall CSV."
+      • "Preprocessing: MinMaxScaler normalization, 80/20 split."
+      • "Two models trained: FFNN (Dense layers) and CNN2D (Conv layers)."
+      • "Training runs in a background thread so the GUI stays responsive."
+      • "After training, model is saved and uploaded to the server."
+
+────────────────────────────────────────────────────────────────────────────────
+  MEMBER 3 — MEGHANA   →   SLIDES 11 to 15   (Data, Models & Requirements)
+────────────────────────────────────────────────────────────────────────────────
+
+  SLIDE 11 — Client Side Module (Data Preprocessing Detail)
+    WHY: You designed the entire preprocessing pipeline and datasets.
+    WHAT TO SAY:
+      • "Input is historical rainfall data — monthly values from each station."
+      • "We apply Min-Max normalization to scale all values to [0, 1]."
+      • "We use shuffle=False — because this is time-series data. Shuffling
+        would destroy the temporal patterns that the model needs to learn."
+      • "80% goes for training, 20% for testing — standard ML split."
+
+  SLIDE 12 — Server Side Module: Global Model Aggregation
+    WHY: You designed the metrics that validate the aggregated model.
+    WHAT TO SAY:
+      • "The server receives encoded weights from each station."
+      • "FedAvg averages all weights layer by layer."
+      • "We then evaluate the global model using MSE, RMSE, R², Accuracy."
+      • "I built the evaluation engine — it inverse-transforms predictions
+        back to real water level values before computing metrics."
+
+  SLIDE 13 — CNN2D Local Training Algorithm (6-Step Sequence)
+    WHY: You prepared the datasets that feed into CNN2D training.
+    WHAT TO SAY:
+      • Step 1: Input Reshaping — "Rainfall data reshaped to (N, 12, 1, 1)."
+      • Step 2: Conv2D + ReLU — "Detects spatial monthly rainfall patterns."
+      • Step 3: MaxPooling — "Reduces feature map size, keeps key features."
+      • Step 4: Flatten — "Converts 2D maps to 1D for Dense layers."
+      • Step 5: Dense Layers — "Learns high-level relationships."
+      • Step 6: Adam + MSE — "Optimizes to minimize prediction error."
+
+  SLIDE 14 — Federated Aggregation Algorithm (5-Step Pipeline)
+    WHY: You designed the metrics that validate the aggregation outcome.
+    WHAT TO SAY:
+      • Step 1: Server initializes global model.
+      • Step 2: Each client trains until convergence (100/150 epochs).
+      • Step 3: Model weights encoded as Base64.
+      • Step 4: JSON payload sent to server via socket.
+      • Step 5: Server runs FedAvg → new global model created.
+      • "We measure convergence using MSE and R² — which I computed."
+
+  SLIDE 15 — System Requirements
+    WHY: You validated the system on the actual hardware/software stack.
+    WHAT TO SAY:
+      • Hardware: Intel i5+, 8-16GB RAM, 500GB SSD.
+      • Software: Python 3.10+, TensorFlow/Keras, Pandas, NumPy.
+      • "Our datasets (6 CSV files, 15 columns each) are under 1MB total —
+        proving federated learning is extremely bandwidth-efficient."
+      • "Entire system runs on a standard laptop — no cloud needed."
+
+────────────────────────────────────────────────────────────────────────────────
+  MEMBER 4 — NAVYA   →   SLIDES 16 to 20   (Results, Conclusion & Future)
+────────────────────────────────────────────────────────────────────────────────
+
+  SLIDE 16 — Literature Survey
+    WHY: You did research for README and documentation.
+    WHAT TO SAY:
+      • "We studied McMahan et al. (2017) — the original FedAvg paper."
+      • "CNN for time-series prediction: proven effective on sequential data."
+      • "FFNN for water-level forecasting: used as our baseline model."
+      • "Compared to existing flood systems — centralized with privacy issues."
+      • "Our FL-based approach is newer, safer, and more scalable."
+
+  SLIDE 17 — Results & Performance
+    WHY: You built the dashboard charts and PDF report showing these results.
+    WHAT TO SAY:
+      • "CNN2D achieves 99.9% accuracy — our best result."
+      • "FFNN serves as the baseline — also shows strong performance."
+      • "Data privacy is guaranteed — zero raw data shared at any point."
+      • "Real-time flood alerts are triggered when water level > 25 units."
+      • "I built the 3-chart dashboard and PDF report that display these results."
+
+  SLIDE 18 — Conclusion
+    WHY: You coordinated the documentation that summarizes these takeaways.
+    WHAT TO SAY:
+      • Privacy-Preserving: "Raw data stays at each station — always."
+      • Effective FL: "FedAvg successfully merges local knowledge globally."
+      • Scalable & Secure: "New stations can join without redesigning the system."
+      • Real-World Ready: "Validated on real Krishna River Basin data."
+      • "This system can be deployed at actual river monitoring stations today."
+
+  SLIDE 19 — Future Scope
+    WHY: You contributed to the roadmap thinking and documentation.
+    WHAT TO SAY:
+      • "Add more stations along the full river length."
+      • "Connect real IoT sensors for live water-level feeds."
+      • "Build hybrid models — combining LSTM + CNN for better time-series."
+      • "Scale to a national system covering all major Indian river basins."
+      • "Eventually integrate with government disaster management portals."
+
+  SLIDE 20 — Thank You / Q&A
+    WHY: As documentation lead, you wrap up the presentation.
+    WHAT TO SAY:
+      • "Thank you, Sir. Our team has built a complete, working,
+        privacy-safe flood forecasting system from scratch."
+      • "We are happy to answer any questions."
+      • Be ready to explain: Why FL? Why CNN2D? How does FedAvg work?
+        How is accuracy 99.9%? How do you handle data privacy?
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              PART 2 : INDIVIDUAL CONTRIBUTIONS (HOW & WHY)                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+================================================================================
+ MEMBER 1 – M KARTHIK REDDY
+ ROLE: Team Leader | Federated Learning Engineer | Server Developer
+================================================================================
+
+  --- FEDERATED LEARNING SYSTEM DESIGN ---
+
+  WHAT: Designed the full FL workflow — 3 stations, 1 server, FedAvg.
+  WHY:  Traditional centralized systems share raw data, causing privacy
+        leaks and bandwidth waste. FL solves this by sharing ONLY weights.
+  HOW:  Defined 3-station topology (Almatti → Srisailam → Prakasam).
+        Planned that each station trains independently, uploads model weights
+        to a central server via TCP socket, and the server merges them.
+
+  --- FEDAVG ALGORITHM ---
+
+  WHAT: Implemented the Federated Averaging (FedAvg) aggregation logic.
+  WHY:  Averaging weights from all stations creates a global model that
+        has learned from all local data — without seeing any raw data.
+  HOW:  Loads .keras models from all stations.
+        For each layer: new_weight = mean(w1, w2, w3) using numpy.
+        Saves merged model as aggregated_model.keras.
+        Validates global model → reports Accuracy, MSE, R².
+
+  --- TCP SOCKET SERVER ---
+
+  WHAT: Built the server that listens for model uploads on port 2222.
+  WHY:  Sockets allow fast, direct communication between clients and server
+        without needing a web framework or cloud service.
+  HOW:  socket.AF_INET + SOCK_STREAM → opens TCP listener.
+        Each incoming connection spawns a new daemon thread.
+        Uses <EOF> delimiter to detect full JSON payload receipt.
+        Decodes Base64 model bytes → saves .keras file to disk.
+
+  --- CENTRAL SERVER UI (Server.py) ---
+
+  WHAT: Built the complete server application with 7-tab dashboard.
+  WHY:  A visual dashboard lets the operator monitor all 3 stations,
+        trigger aggregation, view flood alerts, and export reports.
+  HOW:  CustomTkinter Dark Mode, 7 tabs (Dashboard, Station 1/2/3,
+        Aggregation, History, Network Map).
+        Real-time CPU+RAM monitor via psutil every 2 seconds.
+        Animated splash screen with loading progress messages.
+
+  --- PROJECT MANAGEMENT ---
+
+  WHAT: Led the team, testing, GitHub, and documentation.
+  WHY:  As team leader, ensuring everyone's work integrates correctly
+        is as important as writing code.
+  HOW:  Weekly meetings, task tracking, end-to-end test runs,
+        GitHub repo maintenance, authored Project_Documentation.md.
+
+================================================================================
+ MEMBER 2 – T SIVA REDDY
+ ROLE: Client App Developer | Neural Network Model Designer
+================================================================================
+
+  --- CLIENT APPLICATION (Main.py) ---
+
+  WHAT: Built the full Tkinter client app with 4-phase workflow.
+  WHY:  Each station operator needs a simple, guided interface to upload
+        data, train models, and send weights to the server.
+  HOW:  4 LabelFrame phases in a scrollable sidebar.
+        Canvas + Scrollbar for scroll support with mousewheel.
+        PIL-based icon buttons (load_icon utility).
+        Animated splash screen using ttk.Progressbar.
+
+  --- FFNN MODEL ---
+
+  WHAT: Designed and trained the Feedforward Neural Network (baseline).
+  WHY:  FFNN as a baseline lets us compare whether CNN2D actually improves
+        accuracy. It is simpler, faster to train, good for linear patterns.
+  HOW:  Dense(32) → Dense(16, ReLU) → Dense(1) | Adam + MSE
+        100 epochs, batch=8, 80/20 split.
+        Training in background thread using threading.Thread.
+        queue.Queue sends epoch logs safely to the main UI thread.
+        ModelCheckpoint saves best model to model/ff_weights.keras.
+        Training history saved to ff_history.json for MSE graph replay.
+
+  --- CNN-2D MODEL ---
+
+  WHAT: Designed and trained the CNN-2D model (extension/proposed method).
+  WHY:  CNN2D can detect spatial patterns in the monthly grid of rainfall
+        data. It outperforms FFNN because rainfall has seasonal structure.
+  HOW:  Input reshaped from (N,12) to (N,12,1,1) for 2D convolution.
+        Conv2D(32,(3,1)) → MaxPool → Conv2D(64,(3,1)) → MaxPool
+        → Flatten → Dense(100) → Dense(1)
+        150 epochs, batch=8. Saves to extension_weights.keras.
+        History saved to cnn_history.json.
+
+  --- MODEL UPLOAD ---
+
+  WHAT: Sends trained model to the central server.
+  WHY:  The whole FL system only works if clients can reliably upload their
+        model weights. This is the "communication" part of FL.
+  HOW:  Opens .keras file → reads bytes → encodes as Base64.
+        Creates TCP socket → connects to localhost:2222.
+        Sends JSON payload + <EOF> delimiter.
+        Uploads FFNN and CNN models with 1-second gap between each.
+
+================================================================================
+ MEMBER 3 – I SUSHMA MEGHANA
+ ROLE: Data Engineer | Preprocessing & Metrics Specialist
+================================================================================
+
+  --- DATASET PREPARATION ---
+
+  WHAT: Prepared all 6 CSV files used throughout the system.
+  WHY:  ML models are only as good as the data they train on. Clean,
+        well-structured station-specific data is critical for FL to work.
+  HOW:  Collected monthly rainfall + annual water level data for
+        Almatti, Srisailam, and Prakasam from historical records.
+        Format: [SUBDIVISION, YEAR, JAN-DEC (12 cols), water_level]
+        15 columns total. Missing values filled with 0.
+        Split into Station_1/2/3.csv for federated station assignment.
+
+  --- PREPROCESSING PIPELINE ---
+
+  WHAT: Built MinMaxScaler normalization and time-series split.
+  WHY:  Neural networks train faster and better on [0,1] scaled data.
+        shuffle=False is critical: time-series data has temporal order.
+        Shuffling would mix past and future — causing data leakage.
+  HOW:  norm1 = MinMaxScaler → fits on X (12 monthly features).
+        norm2 = MinMaxScaler → fits on Y (water_level).
+        train_test_split(shuffle=False) → 80% train, 20% test.
+
+  --- METRICS ENGINE ---
+
+  WHAT: Implemented calculateMetrics() for model evaluation.
+  WHY:  Without proper metrics, we can't know if our model is good.
+        Inverse transform is needed to report results in real units
+        (actual water levels, not normalized 0-1 values).
+  HOW:  norm2.inverse_transform() → convert predicted values back.
+        MSE  = mean_squared_error(true, pred)
+        RMSE = sqrt(MSE)
+        R²   = r2_score(true, pred)
+        Accuracy = 100 - (RMSE / mean(true) x 100)
+        Server uses MAPE: accuracy = 100 - mean(|true-pred|/true)*100
+
+  --- COMPARISON BAR CHART ---
+
+  WHAT: Built the FFNN vs CNN-2D performance comparison graph.
+  WHY:  Visual comparison proves CNN2D outperforms FFNN — justifying
+        our choice of CNN2D as the proposed/extension model.
+  HOW:  Results stored in global lists [mse, rmse, accuracy].
+        pandas DataFrame + pivot → matplotlib bar chart.
+
+  --- HISTORICAL FLOOD DATABASE ---
+
+  WHAT: Compiled 27 historical flood events (1903–2024).
+  WHY:  Puts the project in real-world context and shows the danger
+        level of the Krishna River Basin.
+  HOW:  Researched and hard-coded events into Server.py History tab.
+        Notable: 1977 Diviseema (10,000+ casualties),
+                 2021 Sangli (500+ villages), 2009 Kurnool (80+ dead).
+
+================================================================================
+ MEMBER 4 – R NAVYA SRI
+ ROLE: Dashboard UI Designer | Network Visualizer | Report Engineer
+================================================================================
+
+  --- SERVER DASHBOARD CHARTS ---
+
+  WHAT: Built the 3-chart analytics dashboard on the server.
+  WHY:  The operator needs a clear visual overview of all station
+        model performance after each upload — not just raw numbers.
+  HOW:  3 matplotlib bar charts (Accuracy, MSE, R²) inside CustomTkinter.
+        FigureCanvasTkAgg embeds charts directly in the UI frame.
+        Auto-updates every time any station uploads a model.
+        Y-axis for Accuracy extended to 105 so labels don't overlap bars.
+
+  --- STATION ANALYTICS PANELS ---
+
+  WHAT: Designed per-station tabs (Station 1, 2, 3) with prediction graphs.
+  WHY:  Operators need to see exactly how each station's model is performing
+        — not just the global summary.
+  HOW:  White dashed = Actual, Cyan = CNN, Orange = FFNN.
+        Graceful "No data yet" placeholder if station hasn't uploaded.
+
+  --- LIVE TRAINING DASHBOARD (Main.py) ---
+
+  WHAT: Built TrainingDashboard — real-time loss chart during training.
+  WHY:  Without a live chart, the operator has no idea if training is
+        progressing or stuck. Visual feedback is essential.
+  HOW:  Top chart: Train Loss (cyan) vs Val Loss (orange) per epoch.
+        OR replays ff_history.json / cnn_history.json if model is cached.
+        Bottom chart: Prediction vs True water level at training end.
+        Status bar: "Epoch 45 | Loss: 0.00123 | Val Loss: 0.00145"
+        Singleton window — same window reused for FFNN and CNN runs.
+
+  --- LIVEPLOTCALLBACK ---
+
+  WHAT: Built custom Keras Callback that feeds live data to the dashboard.
+  WHY:  Keras training runs in a background thread. The Tkinter UI is
+        on the main thread. They can't directly communicate — we need
+        a thread-safe bridge.
+  HOW:  on_epoch_end pushes (epoch, logs) into queue.Queue.
+        Main thread polls queue via main.after(50ms).
+        Accumulates full history in self.history dict → saved to JSON.
+
+  --- NETWORK TOPOLOGY MAP ---
+
+  WHAT: Built a live visual map of stations → server connections.
+  WHY:  A network map makes it instantly clear which stations are online
+        and connected — important during live demo and real deployment.
+  HOW:  Tkinter Canvas draws circles for 3 stations + central server.
+        Green circle = Online (model received), Red = Offline.
+        Dashed lines from each station to the server.
+        Auto-redraws every 3 seconds.
+
+  --- PDF EXPORT ---
+
+  WHAT: Auto-generates a professional PDF report on demand.
+  WHY:  Faculty, researchers, and administrators need a printable summary
+        of system performance — not just an on-screen dashboard.
+  HOW:  ReportLab SimpleDocTemplate.
+        Section 1: Station status table. Section 2: Metrics per station.
+        Section 3: Bar chart image embedded in PDF.
+        Filename: Report_YYYYMMDD_HHMMSS.pdf. Auto-saved to project folder.
+
+  --- DOCUMENTATION & DIAGRAMS ---
+
+  WHAT: Authored README.md and all project diagrams.
+  WHY:  Clear documentation is required for project submission, GitHub,
+        and making the project reusable by others.
+  HOW:  README.md (44KB): architecture overview, setup steps, usage guide.
+        Diagrams: System architecture, FL workflow, use case, network map.
+        Coordinated 11 chapters for the final faculty submission.
+
+================================================================================
+ ALL MEMBERS — Shared Work
+================================================================================
+
+  • Problem Statement  — All 4 identified privacy risks in centralized
+                         water data sharing as the core problem to solve.
+
+  • Literature Survey  — All 4 reviewed FedAvg (McMahan 2017), CNN for
+                         time-series, water-level FFNN papers together.
+
+  • Dataset Collection — All 4 gathered and verified rainfall + water level
+                         records for Almatti, Srisailam, Prakasam.
+
+  • End-to-End Testing — All 4 tested: server + 3 clients + FFNN + CNN +
+                         FedAvg + global model + flood alert output.
+
+  • Presentation       — All 4 prepared slides, demo, and Q&A answers
+                         for Dr. G. Kishore's review.
+
+================================================================================
+ TECH STACK QUICK REFERENCE
+================================================================================
+
+  Python 3.10+   |  Tkinter (Client)   |  CustomTkinter (Server)
+  Keras + TF     |  FFNN (Dense)       |  CNN-2D (Conv2D + MaxPool2D)
+  FedAvg         |  TCP Sockets        |  JSON + Base64 + <EOF>
+  Pandas, NumPy  |  Scikit-learn       |  Matplotlib + FigureCanvasTkAgg
+  ReportLab PDF  |  psutil CPU/RAM     |  .keras + .json model storage
+
+================================================================================
+ RESULTS
+================================================================================
+
+  • CNN2D = 99.9% accuracy | FFNN = strong baseline for comparison.
+  • Zero raw data ever shared — full privacy guaranteed.
+  • Flood alert at water level > 25 units with station propagation timeline.
+  • PDF report auto-generated with all metrics and charts on demand.
+  • System validated on Krishna River Basin (126 years of historical data).
+  • Scalable: new stations added with no server code changes.
+
+================================================================================
+ END | FFM – Flood Forecasting Model Using Federated Learning
+ Guide: Dr. G. Kishore | Team: Karthik, Siva, Meghana, Navya
+================================================================================
