@@ -1,1 +1,11 @@
-# Empty - all files are tracked
+# Virtual environments
+.venv310/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
