@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>FL Architecture (Wide)</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1400px;
+    height: 700px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  #diagram {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mermaid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .mermaid svg {
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+</style>
+</head>
+<body>
+
+<div id="diagram">
+<div class="mermaid">
+%%{init: {'theme': 'base', 'themeVariables': {
+  'primaryColor': '#ffffff',
+  'primaryTextColor': '#111827',
+  'primaryBorderColor': '#cbd5e1',
+  'lineColor': '#0284c7',
+  'fontFamily': 'Segoe UI, Arial, sans-serif'
+}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 40, "rankSpacing": 80}}}%%
+flowchart LR
+
+    subgraph L1 [ LAYER 1 : CLIENT LAYER ]
+        direction TB
+        S1["<b>Station 1 (Almatti)</b><br/><code>Main.py</code><br/><i>Trains FFNN & CNN-2D</i><br/>🔒 Data Stays Local"]
+        S2["<b>Station 2 (Srisailam)</b><br/><code>Main.py</code><br/><i>Trains FFNN & CNN-2D</i><br/>🔒 Data Stays Local"]
+        S3["<b>Station 3 (Prakasam)</b><br/><code>Main.py</code><br/><i>Trains FFNN & CNN-2D</i><br/>🔒 Data Stays Local"]
+    end
+
+    subgraph L2 [ LAYER 2 : COMMUNICATION LAYER ]
+        direction TB
+        TCP["<b>TCP / IP Sockets</b><br/>Port 2222<br/>JSON Payload<br/>Base64 Encoded Weights"]
+    end
+
+    subgraph L3 [ LAYER 3 : SERVER LAYER ]
+        direction TB
+        SRV["<b>Central Server</b><br/><code>server1.py</code><br/><i>CustomTkinter Dashboard</i>"]
+        FED["<b>Federated Averaging<br/>(FedAvg)</b><br/><i>Layer-wise Mean</i>"]
+        EVAL["<b>Global Evaluation</b><br/>MSE • RMSE • R² • Accuracy"]
+        OUT["<b>Alerts & Reports</b><br/>Flood Alerts & PDF"]
+        
+        SRV --> FED
+        FED --> EVAL
+        EVAL --> OUT
+    end
+
+    S1 -- "Upload Weights / EOF" --> TCP
+    S2 -- "Upload Weights / EOF" --> TCP
+    S3 -- "Upload Weights / EOF" --> TCP
+    
+    TCP -- "Decode" --> SRV
+    
+    FED -. "Distribute Global Model" .-> TCP
+    
+    TCP -. "Update Clients" .-> S1
+    TCP -. "Update Clients" .-> S2
+    TCP -. "Update Clients" .-> S3
+
+    %% Styles for blocks
+    classDef client fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef comm fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#9a3412
+    classDef server fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef algo fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#334155,stroke-dasharray: 5 5
+
+    class S1,S2,S3 client
+    class TCP comm
+    class SRV server
+    class FED,EVAL algo
+    class OUT server
+
+    style L1 fill:none,stroke:#16a34a,stroke-width:2px,stroke-dasharray: 5 5,color:#16a34a,font-weight:bold
+    style L2 fill:none,stroke:#f97316,stroke-width:2px,stroke-dasharray: 5 5,color:#f97316,font-weight:bold
+    style L3 fill:none,stroke:#2563eb,stroke-width:2px,stroke-dasharray: 5 5,color:#2563eb,font-weight:bold
+</div>
+</div>
+
+<script>
+mermaid.initialize({ startOnLoad: true });
+</script>
+</body>
+</html>

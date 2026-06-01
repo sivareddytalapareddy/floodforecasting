@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700" font-family="Segoe UI, -apple-system, sans-serif">
+    <!-- Background: Transparent to fit the slide -->
+    <rect width="1600" height="700" fill="transparent"/>
+
+    <!-- Defs -->
+    <defs>
+        <filter id="shadow" x="-5%" y="-5%" width="120%" height="120%">
+            <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.1"/>
+        </filter>
+        <filter id="light-shadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.08"/>
+        </filter>
+        <!-- Gradients -->
+        <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f0fdf4;" />
+            <stop offset="100%" style="stop-color:#dcfce7;" />
+        </linearGradient>
+        <linearGradient id="commGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#fff7ed;" />
+            <stop offset="100%" style="stop-color:#ffedd5;" />
+        </linearGradient>
+        <linearGradient id="serverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#eff6ff;" />
+            <stop offset="100%" style="stop-color:#dbeafe;" />
+        </linearGradient>
+        <!-- Arrowhead markers -->
+        <marker id="arrowUp" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#f97316"/>
+        </marker>
+        <marker id="arrowDown" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+        </marker>
+    </defs>
+
+    <!-- LAYER BOXES (Dashed outlines) -->
+    
+    <!-- L1: Client -->
+    <rect x="50" y="50" width="380" height="600" rx="16" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="10, 8"/>
+    <rect x="130" y="32" width="220" height="36" rx="8" fill="#16a34a"/>
+    <text x="240" y="56" text-anchor="middle" fill="white" font-size="16" font-weight="bold" letter-spacing="1">LAYER 1: CLIENT LAYER</text>
+
+    <!-- L2: Communication -->
+    <rect x="530" y="50" width="400" height="600" rx="16" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="10, 8"/>
+    <rect x="590" y="32" width="280" height="36" rx="8" fill="#ea580c"/>
+    <text x="730" y="56" text-anchor="middle" fill="white" font-size="16" font-weight="bold" letter-spacing="1">LAYER 2: COMMUNICATION LAYER</text>
+
+    <!-- L3: Server -->
+    <rect x="1030" y="50" width="520" height="600" rx="16" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="10, 8"/>
+    <rect x="1190" y="32" width="200" height="36" rx="8" fill="#2563eb"/>
+    <text x="1290" y="56" text-anchor="middle" fill="white" font-size="16" font-weight="bold" letter-spacing="1">LAYER 3: SERVER LAYER</text>
+
+    <!-- ==================== CLIENT NODES (Layer 1) ==================== -->
+    <g transform="translate(100, 120)" filter="url(#shadow)">
+        <rect width="280" height="130" rx="12" fill="url(#clientGrad)" stroke="#16a34a" stroke-width="2"/>
+        <text x="140" y="35" text-anchor="middle" fill="#14532d" font-size="18" font-weight="bold">Station 1 (Almatti)</text>
+        <line x1="30" y1="50" x2="250" y2="50" stroke="#86efac" stroke-width="1"/>
+        <text x="140" y="70" text-anchor="middle" fill="#166534" font-size="14" font-weight="600">App: Main.py</text>
+        <text x="140" y="90" text-anchor="middle" fill="#15803d" font-size="13">Trains FFNN &amp; CNN-2D Model</text>
+        <text x="140" y="112" text-anchor="middle" fill="#ea580c" font-size="12" font-weight="bold">🔒 Data Stays Local</text>
+    </g>
+
+    <g transform="translate(100, 290)" filter="url(#shadow)">
+        <rect width="280" height="130" rx="12" fill="url(#clientGrad)" stroke="#16a34a" stroke-width="2"/>
+        <text x="140" y="35" text-anchor="middle" fill="#14532d" font-size="18" font-weight="bold">Station 2 (Srisailam)</text>
+        <line x1="30" y1="50" x2="250" y2="50" stroke="#86efac" stroke-width="1"/>
+        <text x="140" y="70" text-anchor="middle" fill="#166534" font-size="14" font-weight="600">App: Main.py</text>
+        <text x="140" y="90" text-anchor="middle" fill="#15803d" font-size="13">Trains FFNN &amp; CNN-2D Model</text>
+        <text x="140" y="112" text-anchor="middle" fill="#ea580c" font-size="12" font-weight="bold">🔒 Data Stays Local</text>
+    </g>
+
+    <g transform="translate(100, 460)" filter="url(#shadow)">
+        <rect width="280" height="130" rx="12" fill="url(#clientGrad)" stroke="#16a34a" stroke-width="2"/>
+        <text x="140" y="35" text-anchor="middle" fill="#14532d" font-size="18" font-weight="bold">Station 3 (Prakasam)</text>
+        <line x1="30" y1="50" x2="250" y2="50" stroke="#86efac" stroke-width="1"/>
+        <text x="140" y="70" text-anchor="middle" fill="#166534" font-size="14" font-weight="600">App: Main.py</text>
+        <text x="140" y="90" text-anchor="middle" fill="#15803d" font-size="13">Trains FFNN &amp; CNN-2D Model</text>
+        <text x="140" y="112" text-anchor="middle" fill="#ea580c" font-size="12" font-weight="bold">🔒 Data Stays Local</text>
+    </g>
+
+
+    <!-- ==================== COMMUNICATION NODE (Layer 2) ==================== -->
+    <g transform="translate(580, 260)" filter="url(#shadow)">
+        <rect width="300" height="180" rx="16" fill="url(#commGrad)" stroke="#ea580c" stroke-width="3"/>
+        <text x="150" y="45" text-anchor="middle" fill="#9a3412" font-size="22" font-weight="bold">TCP / IP Sockets</text>
+        <line x1="40" y1="60" x2="260" y2="60" stroke="#fdba74" stroke-width="1"/>
+        <text x="150" y="90" text-anchor="middle" fill="#c2410c" font-size="16" font-weight="600">Port 2222</text>
+        <text x="150" y="120" text-anchor="middle" fill="#c2410c" font-size="15">JSON Payload</text>
+        <text x="150" y="150" text-anchor="middle" fill="#c2410c" font-size="15">Base64 Encoded Weights &amp; &lt;EOF&gt;</text>
+    </g>
+
+    <!-- ARROWS L1 -> L2 (Gradients) -->
+    <!-- S1 -> TCP -->
+    <path d="M 380 185 C 480 185, 480 290, 580 290" fill="none" stroke="#f97316" stroke-width="4" marker-end="url(#arrowUp)"/>
+    <text x="440" y="225" fill="#c2410c" font-size="12" font-weight="600" transform="rotate(22, 440, 225)">Upload Gradients</text>
+
+    <!-- S2 -> TCP -->
+    <path d="M 380 355 L 580 355" fill="none" stroke="#f97316" stroke-width="4" marker-end="url(#arrowUp)"/>
+    <text x="440" y="348" fill="#c2410c" font-size="12" font-weight="600">Upload Gradients</text>
+
+    <!-- S3 -> TCP -->
+    <path d="M 380 525 C 480 525, 480 420, 580 420" fill="none" stroke="#f97316" stroke-width="4" marker-end="url(#arrowUp)"/>
+    <text x="440" y="490" fill="#c2410c" font-size="12" font-weight="600" transform="rotate(-23, 440, 490)">Upload Gradients</text>
+
+
+    <!-- ==================== SERVER NODES (Layer 3) ==================== -->
+    <g transform="translate(1080, 100)" filter="url(#shadow)">
+        <rect width="420" height="120" rx="12" fill="url(#serverGrad)" stroke="#3b82f6" stroke-width="2"/>
+        <text x="210" y="38" text-anchor="middle" fill="#1e3a8a" font-size="20" font-weight="bold">🌐 Central FL Server</text>
+        <line x1="40" y1="55" x2="380" y2="55" stroke="#93c5fd" stroke-width="1"/>
+        <text x="210" y="80" text-anchor="middle" fill="#1d4ed8" font-size="15" font-weight="600">App: server1.py</text>
+        <text x="210" y="102" text-anchor="middle" fill="#2563eb" font-size="14">CustomTkinter Dashboard</text>
+    </g>
+
+    <g transform="translate(1080, 260)" filter="url(#shadow)">
+        <rect width="420" height="110" rx="12" fill="#f8fafc" stroke="#475569" stroke-width="2" stroke-dasharray="6,4"/>
+        <text x="210" y="40" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="bold">⚙️ Federated Averaging (FedAvg)</text>
+        <line x1="40" y1="55" x2="380" y2="55" stroke="#cbd5e1" stroke-width="1"/>
+        <text x="210" y="82" text-anchor="middle" fill="#334155" font-size="15">Numpy Layer-wise Mean → new weights</text>
+    </g>
+
+    <g transform="translate(1080, 410)" filter="url(#shadow)">
+        <rect width="420" height="100" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+        <text x="210" y="38" text-anchor="middle" fill="#14532d" font-size="18" font-weight="bold">📊 Global Model Evaluation</text>
+        <line x1="40" y1="50" x2="380" y2="50" stroke="#86efac" stroke-width="1"/>
+        <text x="210" y="76" text-anchor="middle" fill="#15803d" font-size="15">MSE • RMSE • R² • Accuracy (MAPE)</text>
+    </g>
+
+    <g transform="translate(1080, 550)" filter="url(#shadow)">
+        <rect width="420" height="80" rx="12" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+        <text x="210" y="32" text-anchor="middle" fill="#7f1d1d" font-size="18" font-weight="bold">🚨 Outputs</text>
+        <text x="210" y="60" text-anchor="middle" fill="#b91c1c" font-size="15">Real-time Flood Alerts • PDF Report Generation</text>
+    </g>
+
+    <!-- ARROWS L2 -> L3 (Communication to Server) -->
+    <path d="M 880 350 L 1080 160" fill="none" stroke="#f97316" stroke-width="4" marker-end="url(#arrowUp)"/>
+    <text x="960" y="240" fill="#c2410c" font-size="13" font-weight="600" text-anchor="middle" transform="rotate(-43, 960, 240)">Decode JSON</text>
+
+    <!-- Logic flow within L3 -->
+    <path d="M 1290 220 L 1290 260" fill="none" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrowDown)"/>
+    <path d="M 1290 370 L 1290 410" fill="none" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrowDown)"/>
+    <path d="M 1290 510 L 1290 550" fill="none" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrowDown)"/>
+
+    <!-- Feedback loop: FedAvg -> Communication -> Clients -->
+    <path d="M 1080 315 L 880 315" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="8,6" marker-end="url(#arrowDown)"/>
+    <text x="980" y="305" fill="#1d4ed8" font-size="13" font-weight="600" text-anchor="middle">Distribute Global Model</text>
+
+    <!-- L2 -> L1 (Global Weights) -->
+    <!-- TCP -> S1 -->
+    <path d="M 580 315 C 480 315, 480 160, 380 160" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="8,6" marker-end="url(#arrowDown)"/>
+    <!-- TCP -> S2 -->
+    <path d="M 580 330 L 380 330" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="8,6" marker-end="url(#arrowDown)"/>
+    <!-- TCP -> S3 -->
+    <path d="M 580 345 C 480 345, 480 500, 380 500" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="8,6" marker-end="url(#arrowDown)"/>
+    
+    <text x="440" y="160" fill="#1d4ed8" font-size="13" font-weight="600" transform="rotate(-54, 440, 160)">Updated Weights</text>
+    <text x="470" y="322" fill="#1d4ed8" font-size="13" font-weight="600">Updated Weights</text>
+    <text x="440" y="470" fill="#1d4ed8" font-size="13" font-weight="600" transform="rotate(53, 440, 470)">Updated Weights</text>
+</svg>

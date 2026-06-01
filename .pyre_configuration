@@ -1,0 +1,10 @@
+{
+  "source_directories": [
+    "."
+  ],
+  "search_path": [
+    "C:\\Users\\karth\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages",
+    "C:\\Users\\karth\\AppData\\Local\\Programs\\Python\\Python310",
+    "C:\\Users\\karth\\AppData\\Roaming\\Python\\Python310\\site-packages"
+  ]
+}

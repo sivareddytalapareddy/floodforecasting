@@ -1,0 +1,44 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Model files (too large for GitHub - optional)
+# Uncomment if you want to exclude trained models
+# model/*.keras
+# model/*.h5
+# received/*.keras
+
+# Dataset files (if too large)
+# Dataset/*.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+*.txt
+!requirements.txt
+!FFMDEV.txt
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Reports (generated)
+Report_*.txt
